@@ -30,13 +30,13 @@ namespace AvanceradDotNet_Labb3
             Stopwatch = new Stopwatch();
         }
 
-        public async void Drive(Car car)
+        public async void Drive(Car car, int raceDistance)
         {
             Stopwatch timer = new Stopwatch();
             Thread timerThread = new Thread(() => timer.Start());
             timerThread.Start();
             Random random = new Random();
-            while (DistanceTravelled < 500)
+            while (DistanceTravelled < raceDistance)
             {
                 if (Stopwatch.Elapsed.TotalSeconds > 3)
                 {

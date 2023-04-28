@@ -24,15 +24,24 @@ namespace AvanceradDotNet_Labb3
             cars.Add(c1);
             cars.Add(c2);
             cars.Add(c3);
-            Thread c1Drive = new Thread(() => c1.Drive(c1));
-            Thread c2Drive = new Thread(() => c2.Drive(c2));
-            Thread c3Drive = new Thread(() => c3.Drive(c3));
+            Thread c1Drive = new Thread(() => c1.Drive(c1, 2000));
+            Thread c2Drive = new Thread(() => c2.Drive(c2, 2000));
+            Thread c3Drive = new Thread(() => c3.Drive(c3, 2000));
+            Thread info = new Thread(() => RaceInfo(cars));
             c1Drive.Start();
             c2Drive.Start();
             c3Drive.Start();
+            info.Start();
 
 
-            while (!c1.Finished && !c2.Finished && !c3.Finished)
+
+
+            Console.ReadKey();
+        }
+
+        public static void RaceInfo(List<Car> cars)
+        {
+            while (!cars[0].Finished && !cars[1].Finished && !cars[2].Finished)
             {
                 Console.Clear();
 
@@ -76,11 +85,10 @@ namespace AvanceradDotNet_Labb3
                             $"som gör att hastigheten sänks med 1km/h");
                     }
                 }
-                Thread.Sleep(20);
+                Thread.Sleep(50);
             }
             Console.Clear();
 
-            double longestDrive = 0;
             for (int i = 0; i < cars.Count; i++)
             {
                 for (int j = 0; j < cars.Count; j++)
@@ -110,15 +118,13 @@ namespace AvanceradDotNet_Labb3
                 }
                 else if (car.Placement == 2)
                 {
-                    Console.WriteLine($"{car.Name} kom tvåa. Körde {Math.Round(car.DistanceTravelled,2)} meter.");
+                    Console.WriteLine($"{car.Name} kom tvåa. Körde {Math.Round(car.DistanceTravelled, 2)} meter.");
                 }
                 else if (car.Placement == 3)
                 {
-                    Console.WriteLine($"{car.Name} är sämst. Körde {Math.Round(car.DistanceTravelled,2)} meter.");
+                    Console.WriteLine($"{car.Name} är sämst. Körde {Math.Round(car.DistanceTravelled, 2)} meter.");
                 }
             }
-
-            Console.ReadKey();
         }
     }
 }
